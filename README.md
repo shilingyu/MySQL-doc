@@ -2,7 +2,7 @@
 * [Linux安装及基本命令](./Linux安装及基本命令.md)
 * [Git命令及Github](./Git命令及Github.md)
 * [数据库](./数据库.md)
-* [CGI](.CGI.md)
+* [CGI](./CGI.md)
 
 
 
