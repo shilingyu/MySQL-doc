@@ -4,34 +4,56 @@
 #include <mysql/mysql.h>
 #include "cgic.h"
 
+char * headname = "head.html";
+char * footname = "footer.html";
 int cgiMain()
 {
-
+  FILE * fd;
 	fprintf(cgiOut, "Content-type:text/html;charset=utf-8\n\n");
 
-	char name[32] = "\0";
-	char age[16] = "\0";
-	char stuId[32] = "\0";
+	char sname[32] = "\0";
+	char sage[16] = "\0";
+	char sno[32] = "\0";
+	char ssex[16] = "\0";
 	int status = 0;
+  char ch;
+	if(!(fd = fopen(headname, "r"))){
+		fprintf(cgiOut, "Cannot open file, %s\n", headname);
+		return -1;
+	}
+	ch = fgetc(fd);
 
-	status = cgiFormString("name",  name, 32);
+	while(ch != EOF){
+		fprintf(cgiOut, "%c", ch);
+		ch = fgetc(fd);
+	}
+	fclose(fd);
+
+
+	status = cgiFormString("sname",  sname, 32);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get name error!\n");
+		fprintf(cgiOut, "get sname error!\n");
 		return 1;
 	}
 
-	status = cgiFormString("age",  age, 16);
+	status = cgiFormString("sage",  sage, 16);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get age error!\n");
+		fprintf(cgiOut, "get sage error!\n");
 		return 1;
 	}
 
-	status = cgiFormString("stuId",  stuId, 32);
+	status = cgiFormString("sno",  sno, 32);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get stuId error!\n");
+		fprintf(cgiOut, "get sno error!\n");
+		return 1;
+	}
+	status = cgiFormString("ssex",  ssex, 16);
+	if (status != cgiFormSuccess)
+	{
+		fprintf(cgiOut, "get ssex error!\n");
 		return 1;
 	}
 
@@ -59,8 +81,8 @@ int cgiMain()
 	}
 
 
-
-	strcpy(sql, "create table stu(id int not null primary key, name varchar(20) not null, age int not null)");
+   mysql_query(db, "set character set utf8"); 
+	strcpy(sql, "create table information(sno varchar(12) not null primary key, sname varchar(8) not null, sage int not null,ssex varchar(2) not null)");
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
 		if (ret != 1)
@@ -73,7 +95,7 @@ int cgiMain()
 
 
 
-	sprintf(sql, "insert into stu values(%d, '%s', %d)", atoi(stuId), name, atoi(age));
+	sprintf(sql, "insert into information values('%s', '%s', %d, '%s')", sno, sname, atoi(sage), ssex);
 	if (mysql_real_query(db, sql, strlen(sql) + 1) != 0)
 	{
 		fprintf(cgiOut, "%s\n", mysql_error(db));
