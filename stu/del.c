@@ -4,12 +4,27 @@
 #include <mysql/mysql.h>
 #include "cgic.h"
 
+char * headname = "head.html";
+char * footname = "footer.html";
 int cgiMain()
 {
 
 	fprintf(cgiOut, "Content-type:text/html;charset=utf-8\n\n");
+	FILE * fd;
+	char ch;
+	if(!(fd = fopen(headname, "r"))){
+		fprintf(cgiOut, "Cannot open file, %s\n", headname);
+		return -1;
+	}
+	ch = fgetc(fd);
 
-	char sno[32] = "\0";
+	while(ch != EOF){
+		fprintf(cgiOut, "%c", ch);
+		ch = fgetc(fd);
+	}
+	fclose(fd);
+
+	/*char sno[32] = "\0";
 	int status = 0;
 
 
@@ -18,7 +33,7 @@ int cgiMain()
 	{
 		fprintf(cgiOut, "get sno error!\n");
 		return 1;
-	}
+	}*/
 
 
 	int ret;
@@ -43,7 +58,7 @@ int cgiMain()
 	}
 
 
-	sprintf(sql, "delete from information where sno = '%s'",sno);
+	sprintf(sql, "update information set sstatus = '0'");
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
 		fprintf(cgiOut,"mysql_real_query fail:%s\n", mysql_error(db));

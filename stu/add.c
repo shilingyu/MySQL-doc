@@ -6,6 +6,7 @@
 
 char * headname = "head.html";
 char * footname = "footer.html";
+
 int cgiMain()
 {
   FILE * fd;
@@ -57,6 +58,7 @@ int cgiMain()
 		return 1;
 	}
 
+
 	//fprintf(cgiOut, "name = %s, age = %s, stuId = %s\n", name, age, stuId);
 
 	int ret;
@@ -81,8 +83,8 @@ int cgiMain()
 	}
 
 
-   mysql_query(db, "set character set utf8"); 
-	strcpy(sql, "create table information(sno varchar(12) not null primary key, sname varchar(8) not null, sage int not null,ssex varchar(2) not null)");
+   mysql_query(db, "set character set utf8");
+	strcpy(sql, "create table information(sno varchar(12) not null primary key, sname varchar(8) not null, sage int not null,ssex varchar(4) not null,sstatus int default '2')");
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
 		if (ret != 1)
@@ -95,7 +97,7 @@ int cgiMain()
 
 
 
-	sprintf(sql, "insert into information values('%s', '%s', %d, '%s')", sno, sname, atoi(sage), ssex);
+	sprintf(sql, "insert into information(sno,sname,sage,ssex) values('%s', '%s', %d, '%s')", sno, sname, atoi(sage), ssex);
 	if (mysql_real_query(db, sql, strlen(sql) + 1) != 0)
 	{
 		fprintf(cgiOut, "%s\n", mysql_error(db));

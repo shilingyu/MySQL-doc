@@ -4,37 +4,61 @@
 #include <mysql/mysql.h>
 #include "cgic.h"
 
+char * headname = "head.html";
+char * footname = "footer.html";
+
 int cgiMain()
 {
 
 	fprintf(cgiOut, "Content-type:text/html;charset=utf-8\n\n");
 
-	char name[32] = "\0";
-	char age[16] = "\0";
-	char stuId[32] = "\0";
+	FILE * fd;
+	char ch;
+	if(!(fd = fopen(headname, "r"))){
+		fprintf(cgiOut, "Cannot open file, %s\n", headname);
+		return -1;
+	}
+	ch = fgetc(fd);
+
+	while(ch != EOF){
+		fprintf(cgiOut, "%c", ch);
+		ch = fgetc(fd);
+	}
+	fclose(fd);
+
+	char sname[32] = "\0";
+	char sage[16] = "\0";
+	char sno[32] = "\0";
+	char ssex[16] = "\0";
 	int status = 0;
 
-	status = cgiFormString("name",  name, 32);
+	status = cgiFormString("sname",  sname, 32);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get name error!\n");
+		fprintf(cgiOut, "get sname error!\n");
 		return 1;
 	}
 
-	status = cgiFormString("age",  age, 16);
+	status = cgiFormString("sage",  sage, 16);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get age error!\n");
+		fprintf(cgiOut, "get sage error!\n");
 		return 1;
 	}
 
-	status = cgiFormString("stuId",  stuId, 32);
+	status = cgiFormString("sno",  sno, 32);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get stuId error!\n");
+		fprintf(cgiOut, "get sno error!\n");
 		return 1;
 	}
 
+	status = cgiFormString("ssex",  ssex, 16);
+	if (status != cgiFormSuccess)
+	{
+		fprintf(cgiOut, "get ssex error!\n");
+		return 1;
+	}
 	//fprintf(cgiOut, "name = %s, age = %s, stuId = %s\n", name, age, stuId);
 
 	int ret;
@@ -43,6 +67,7 @@ int cgiMain()
 
 	//初始化
 	db = mysql_init(NULL);
+	mysql_options(db, MYSQL_SET_CHARSET_NAME, "utf8");
 	if (db == NULL)
 	{
 		fprintf(cgiOut,"mysql_init fail:%s\n", mysql_error(db));
@@ -59,7 +84,7 @@ int cgiMain()
 	}
 
 
-	sprintf(sql, "update stu set name='%s', age= %d where id = %d ", name, atoi(age), atoi(stuId));
+	sprintf(sql, "update information set sname='%s', sage= %d, ssex='%s' where sno = '%s' ", sname, atoi(sage), ssex, sno);
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
 		fprintf(cgiOut,"mysql_real_query fail:%s\n", mysql_error(db));

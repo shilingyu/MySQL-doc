@@ -10,33 +10,35 @@ char * footname = "footer.html";
 
 int cgiMain()
 {
-
+  FILE * fd;
 	fprintf(cgiOut, "Content-type:text/html;charset=utf-8\n\n");
 /*	fprintf(cgiOut, "<head><meta charset=\"utf-8\"/><title>查询结果</title>\
 			<style>table {width:400px; margin: 50px auto; border: 1px solid gray; border-collapse: collapse; border-spacing: none; text-align:center;}\
 			tr,td,th{border: 1px solid gray;}\
 			</style>\
 			</head>");*/
-			FILE * fd;
-			char ch;
-	  	if(!(fd = fopen(headname, "r"))){
-	  		fprintf(cgiOut, "Cannot open file, %s\n", headname);
-	  		return -1;
-	  	}
-	  	ch = fgetc(fd);
 
-	  	while(ch != EOF){
-	  		fprintf(cgiOut, "%c", ch);
-	  		ch = fgetc(fd);
-	  	}
-	  	fclose(fd);
 
 	fprintf(cgiOut, "<head><meta charset=\"utf-8\"><title>查询结果</title>\
 		    <link rel=\"stylesheet\" href=\"/stu/public/css/bootstrap.min.css\">\
 		</head>");
 
 	char sno[32] = "\0";
+
 	int status = 0;
+
+	char ch;
+	if(!(fd = fopen(headname, "r"))){
+		fprintf(cgiOut, "Cannot open file, %s\n", headname);
+		return -1;
+	}
+	ch = fgetc(fd);
+
+	while(ch != EOF){
+		fprintf(cgiOut, "%c", ch);
+		ch = fgetc(fd);
+	}
+	fclose(fd);
 
 	status = cgiFormString("sno",  sno, 32);
 	if (status != cgiFormSuccess)
@@ -45,22 +47,25 @@ int cgiMain()
 		return 1;
 	}
 
+
+
 	int ret;
 	MYSQL *db;
 	char sql[128] = "\0";
 
 	if (sno[0] == '*')
 	{
-		sprintf(sql, "select * from information");
+		sprintf(sql, "select sno,sname,sage,ssex from information where sstatus ='1'");
 	}
 	else
 	{
-		sprintf(sql, "select * from information where sno = '%s'", sno);
+		sprintf(sql, "select sno,sname,sage,ssex from information where sno = '%s' and sstatus = '1'", sno);
 	}
 
 
 	//初始化
 	db = mysql_init(NULL);
+	mysql_options(db, MYSQL_SET_CHARSET_NAME, "utf8");
 	if (db == NULL)
 	{
 		fprintf(cgiOut,"mysql_init fail:%s\n", mysql_error(db));
