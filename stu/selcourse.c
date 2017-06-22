@@ -12,9 +12,8 @@ int cgiMain()
   FILE * fd;
 	fprintf(cgiOut, "Content-type:text/html;charset=utf-8\n\n");
 
-	char sno[32] = "\0";
 	char cno[32] = "\0";
-	char score[16] = "\0";
+  char sno[32] = "\0";
 	int status = 0;
   char ch;
 	if(!(fd = fopen(headname, "r"))){
@@ -29,8 +28,7 @@ int cgiMain()
 	}
 	fclose(fd);
 
-
-	status = cgiFormString("sno",  sno, 32);
+  status = cgiFormString("sno",  sno, 32);
 	if (status != cgiFormSuccess)
 	{
 		fprintf(cgiOut, "get sno error!\n");
@@ -44,12 +42,7 @@ int cgiMain()
 		return 1;
 	}
 
-	status = cgiFormString("score",  score, 32);
-	if (status != cgiFormSuccess)
-	{
-		fprintf(cgiOut, "get score error!\n");
-		return 1;
-	}
+
 	//fprintf(cgiOut, "name = %s, age = %s, stuId = %s\n", name, age, stuId);
 
 	int ret;
@@ -75,7 +68,7 @@ int cgiMain()
 
 
    mysql_query(db, "set character set utf8");
-	//strcpy(sql, "create table score(sno varchar(12) not null,cno varchar(12) not null ,score int default '0',primary key(sno,cno),foreign key (sno) references information(sno),foreign key (cno) references course(cno))");
+	strcpy(sql,  "create table score(sno varchar(12) not null,cno varchar(12) not null ,score int default '0',primary key(sno,cno),foreign key (sno) references information(sno),foreign key (cno) references course(cno))");
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
 		if (ret != 1)
@@ -88,7 +81,7 @@ int cgiMain()
 
 
 
-	sprintf(sql, "update score set score= %d where sno = '%s' and cno ='%s' ", atoi(score), sno, cno);
+	sprintf(sql, "insert into score(sno,cno) values('%s', '%s')", sno, cno);
 	if (mysql_real_query(db, sql, strlen(sql) + 1) != 0)
 	{
 		fprintf(cgiOut, "%s\n", mysql_error(db));
@@ -96,7 +89,7 @@ int cgiMain()
 		return -1;
 	}
 
-	fprintf(cgiOut, "add score ok!\n");
+	fprintf(cgiOut, "add course ok!\n");
 	mysql_close(db);
 	return 0;
 }
