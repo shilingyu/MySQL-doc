@@ -1,4 +1,5 @@
 # 技术文档
+* [Ubuntu安装](./Ubuntu安装.md)
 * [Linux安装及基本命令](./Linux安装及基本命令.md)
 * [Git命令及Github](./Git命令及Github.md)
 * [数据库](./数据库.md)
