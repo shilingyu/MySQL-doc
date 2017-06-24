@@ -33,3 +33,10 @@
 
   (9)	touch .gitignore:此命令可以将在我们的仓库目录里产生的三方的临时垃圾文件存放起来
 2.	创建远程仓库，如图所示：
+![创建远程仓库](https://github.com/shilingyu/MySQL-doc/blob/master/img/创建远程仓库.png)
+### 	Github仓库的使用
+1.	本地仓库与GitHub仓库进行关联：
+*	git remote add origin 远程仓库链接地址
+*	git push -u origin master
+2.	还可以用clone直接去下载这个项目, 这也是最常用下载或拉取github仓库的方法：git clone远程仓库链接地址
+3.	将远程仓库的内容更新到本地仓库：git pull origin master
