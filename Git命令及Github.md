@@ -24,7 +24,7 @@
   
   (6)	如果是第一次提交需要配置用户信息及编辑器
   
-  *	用户名：git config –global user.name
+   *	用户名：git config –global user.name
   *	邮箱：git config –global user.email
   *	编辑器：git config –global core.editor vim
 
