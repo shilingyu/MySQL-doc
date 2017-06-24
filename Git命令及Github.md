@@ -25,9 +25,9 @@
   
    (6)	如果是第一次提交需要配置用户信息及编辑器
   
-     *	用户名：git config –global user.name
-     *	邮箱：git config –global user.email
-     *	编辑器：git config –global core.editor vim
+     * 户名：git config –global user.name
+     * 邮箱：git config –global user.email
+     * 编辑器：git config –global core.editor vim
    (7)	使用git log可查看所有提交
 
    (8)	git reset --hard commitID：回退到上次提交的版本的命令。注意：使用这个命令后,再使用git log命令不会查看到所有log的相关信息，但可以用下面的命令查看信息。
