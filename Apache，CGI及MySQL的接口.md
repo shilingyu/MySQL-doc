@@ -68,5 +68,5 @@ int mysql_query(MYSQL *mysql, const char *stmt_str)
 
 ```c
 void mysql_free_result(MYSQL_RES *result)
-//功能：释放空间
+功能：释放空间
 ```
