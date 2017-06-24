@@ -84,7 +84,7 @@ int cgiMain()
 
 
    mysql_query(db, "set character set utf8");
-	strcpy(sql, "create table information(sno varchar(12) not null primary key, sname varchar(8) not null, sage int not null,ssex varchar(4) not null,sstatus int default '2')");
+	strcpy(sql, "create table information(sno varchar(12) not null primary key, sname varchar(8) not null, sage int not null,ssex varchar(4) not null,sstatus int default '1')");
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
 		if (ret != 1)
