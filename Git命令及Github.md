@@ -12,13 +12,18 @@
 *	git pull：将服务器的源码与本地源进行同步
 ### github的使用
 1.	创建本地版本库及使用
+  (1)	新建目录：mkdir 仓库名
   
-  (1)	新建目录：mkdir 仓库名 
   (2)	切换到该目录下，执行git init初始化仓库
+  
   (3)	git status查看仓库目前状态
+  
   (4)	将需要提交到本地的文件执行git add file
+  
   (5)	提交文件状态，保存此次修改，执行命令：git commit 需要加此次提交的标题记录，保存退出
+  
   (6)	如果是第一次提交需要配置用户信息及编辑器
+  
   *	用户名：git config –global user.name
   *	邮箱：git config –global user.email
   *	编辑器：git config –global core.editor vim
