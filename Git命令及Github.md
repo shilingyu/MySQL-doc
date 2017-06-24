@@ -12,26 +12,27 @@
 *	git pull：将服务器的源码与本地源进行同步
 ### github的使用
 1.	创建本地版本库及使用
-  (1)	新建目录：mkdir 仓库名
-  
-  (2)	切换到该目录下，执行git init初始化仓库
-  
-  (3)	git status查看仓库目前状态
-  
-  (4)	将需要提交到本地的文件执行git add file
-  
-  (5)	提交文件状态，保存此次修改，执行命令：git commit 需要加此次提交的标题记录，保存退出
-  
-  (6)	如果是第一次提交需要配置用户信息及编辑器
-  
-  *	用户名：git config –global user.name
-  *	邮箱：git config –global user.email
-  *	编辑器：git config –global core.editor vim
-  (7)	使用git log可查看所有提交
 
-  (8)	git reset --hard commitID：回退到上次提交的版本的命令。注意：使用这个命令后,再使用git log命令不会查看到所有log的相关信息，但可以用下面的命令查看信息。
+   (1)	新建目录：mkdir 仓库名
+  
+   (2)	切换到该目录下，执行git init初始化仓库
+  
+   (3)	git status查看仓库目前状态
+  
+   (4)	将需要提交到本地的文件执行git add file
+  
+   (5)	提交文件状态，保存此次修改，执行命令：git commit 需要加此次提交的标题记录，保存退出
+  
+   (6)	如果是第一次提交需要配置用户信息及编辑器
+  
+     *	用户名：git config –global user.name
+     *	邮箱：git config –global user.email
+     *	编辑器：git config –global core.editor vim
+   (7)	使用git log可查看所有提交
 
-  (9)	touch .gitignore:此命令可以将在我们的仓库目录里产生的三方的临时垃圾文件存放起来
+   (8)	git reset --hard commitID：回退到上次提交的版本的命令。注意：使用这个命令后,再使用git log命令不会查看到所有log的相关信息，但可以用下面的命令查看信息。
+
+   (9)	touch .gitignore:此命令可以将在我们的仓库目录里产生的三方的临时垃圾文件存放起来
 2.	创建远程仓库，如图所示：
 ![创建远程仓库](https://github.com/shilingyu/MySQL-doc/blob/master/img/创建远程仓库.png)
 ### 	Github仓库的使用
