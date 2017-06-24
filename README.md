@@ -5,7 +5,9 @@
 * [Markdown](./Markdown.md)
 * [数据库](./数据库.md)
 * [Apache，CGI及MySQL的接口](./Apache，CGI及MySQL的接口.md)
+* [真假删除](./真假删除.md)
 * [乱码问题的解决](./乱码问题的解决.md)
+
 
 
 
